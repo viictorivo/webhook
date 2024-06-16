@@ -1,5 +1,8 @@
 export class CreatePaymentDto {
-    salesOrderID: string;
-    paymentMethod: string;
-    status: boolean;
-  }
+  constructor(
+      readonly salesOrderID: string,
+      readonly paymentMethod: string,
+      readonly status: boolean,
+      readonly transactionAmount: number,
+  ){}
+}

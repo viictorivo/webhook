@@ -1,18 +1,27 @@
-import { Injectable, UnprocessableEntityException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { PaymentRepository } from './payments.repository';
-import { CreatePaymentDto } from './dto/create-payment.dto';
-import { Payment } from './payment.entity';
+import { ListPaymentDto } from './dto/list-payment.dto';
+import { PaymentEntity } from './payment.entity';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class PaymentsService {
     constructor(
-        @InjectRepository(PaymentRepository)
-        private paymentRepository: PaymentRepository,
+        @InjectRepository(PaymentEntity)
+        private paymentRepository: Repository<PaymentEntity>,
       ) {} 
 
-      async createStatusPayment(createPaymentDto: CreatePaymentDto): Promise<Payment> {
-          return this.paymentRepository.createPayment(createPaymentDto);       
+      async listPayments(){
+          const savedPayments = await this.paymentRepository.find()
+          const listPayments = savedPayments.map(
+              (payment) => new ListPaymentDto(payment.id, payment.salesOrderID, payment.status)
+          )
+
+          return listPayments
       }
+
+      async createPayments(paymentEntity: PaymentEntity){
+        await this.paymentRepository.save(paymentEntity)
+    }
 
 }

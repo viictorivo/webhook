@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: webhook
+  labels:
+    app: webhook
+spec:
+  containers:
+    - name: ordersytem-webhook
+      image: viictorivo/ordersytem-webhook:latest

@@ -10,39 +10,21 @@ import {
   
   @Entity()
   @Unique(['salesOrderID'])
-  export class Payment extends BaseEntity {
+  export class PaymentEntity extends BaseEntity {
     @PrimaryGeneratedColumn('uuid')
     id: string;
   
     @Column({ nullable: false, type: 'varchar', length: 200 })
     salesOrderID: string;
   
-    @Column({ nullable: false, type: 'varchar', length: 200 })
-    createdApproved: string;
-  
     @Column({ nullable: false, type: 'varchar', length: 20 })
     paymentMethod: string;
   
     @Column({ nullable: false, default: true })
     status: boolean;
-  
-    @Column({ nullable: false })
-    paymentType: string;
-  
-    @Column({ nullable: false })
-    externalReference: string;
-  
+      
     @Column({ nullable: true, type: 'int'})
     transactionAmount: number;
-  
-    @Column({ nullable: true, type: 'varchar', length: 64 })
-    qrCode: string;
-
-    @Column({ nullable: true, type: 'varchar', length: 64 })
-    qrCodeBase64: string;
-
-    @Column({ nullable: true, type: 'varchar', length: 64 })
-    ticketUrl: string;
   
     @CreateDateColumn()
     createdAt: Date;
