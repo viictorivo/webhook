@@ -8,3 +8,11 @@ spec:
   containers:
     - name: ordersytem-webhook
       image: viictorivo/ordersytem-webhook:latest
+      ports:
+        - containerPort: 80
+      env:
+        - name: PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: opaque-secret
+              key: PASSWORD
