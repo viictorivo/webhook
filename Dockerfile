@@ -17,4 +17,4 @@ COPY --from=builder /app/package-json .
 
 EXPOSE 3000
 
-CMD [ "node", "run", "start:prod" ]
+CMD [ "node", "run", "start:dev" ]
