@@ -1,18 +1,12 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: webhook
+  name: webhook2
   labels:
-    app: webhook
+    app: webhook2
 spec:
   containers:
-    - name: ordersytem-webhook
-      image: viictorivo/ordersytem-webhook:latest
+    - name: ordersytem-webhook2
+      image: viictorivo/ordersytem-webhook:1
       ports:
         - containerPort: 80
-      env:
-        - name: PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: opaque-secret
-              key: PASSWORD
