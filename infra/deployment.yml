@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webhook-deployment
+  labels:
+    app: webhook
+spec:
+  template:
+    metadata:
+      name: webhook
+      labels:
+        app: webhook
+    spec:
+      containers:
+        - name: ordersytem-webhook
+          image: viictorivo/ordersytem-webhook:1
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 80
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            timeoutSeconds: 5
+          readinessProbe:
+            httpGet:
+              path: /ready
+              port: 80
+            initialDelaySeconds: 15
+            periodSeconds: 5
+            timeoutSeconds: 3
+          resources:
+            requests:
+              cpu: 1m
+  replicas: 1
+  selector:
+    matchLabels:
+      app: webhook
